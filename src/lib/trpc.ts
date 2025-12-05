@@ -14,8 +14,9 @@ export const trpcClient = trpc.createClient({
   transformer: superjson,
   links: [
     httpLink({
-      // Use relative API path so Vite can proxy `/api` to the backend during dev
-      url: "/api/trpc",
+      // Use VITE_API_URL if provided (production), otherwise fall back to
+      // relative `/api/trpc` which is convenient for local dev with a proxy.
+      url: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL.replace(/\/+$/, "")}/api/trpc` : "/api/trpc",
       fetch(input, init) {
         return fetch(input, {
           ...(init ?? {}),
