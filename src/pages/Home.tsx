@@ -49,7 +49,7 @@ export default function Home() {
         <div className="container h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img
-              src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
+              src="favicon.png"
               alt={APP_TITLE}
               className="w-8 h-8 rounded-lg object-cover pointer-events-none select-none"
             />

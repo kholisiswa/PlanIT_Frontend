@@ -107,10 +107,10 @@ export default function Register() {
         <div className="container h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 cursor-pointer">
             <img
-              src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
-              alt={APP_TITLE}
-              className="w-8 h-8 rounded-lg object-cover select-none"
-            />
+            src="favicon.png"
+            alt={APP_TITLE}
+            className="w-16 h-16 rounded-lg object-cover select-none"
+          />
             <span className="font-semibold text-foreground select-none cursor-default">
               {APP_TITLE}
             </span>
@@ -133,10 +133,10 @@ export default function Register() {
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
               <img
-                src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
-                alt={APP_TITLE}
-                className="w-16 h-16 rounded-full shadow-lg object-cover"
-              />
+            src="favicon.png"
+            alt={APP_TITLE}
+            className="w-40 h-40 rounded-lg object-cover select-none"
+          />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-2">
               {APP_TITLE}

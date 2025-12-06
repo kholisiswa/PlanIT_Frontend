@@ -2,7 +2,8 @@ export { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const";
 
 export const APP_TITLE = import.meta.env.VITE_APP_TITLE || "PlanIT";
 
-export const APP_LOGO = "https://cdn-icons-png.freepik.com/512/8019/8019118.png";
+export const APP_LOGO = "favicon.png";
+
 
 // Generate login URL at runtime so redirect URI reflects the current origin.
 export const getLoginUrl = () => {
