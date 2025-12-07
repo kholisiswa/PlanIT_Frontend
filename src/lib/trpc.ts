@@ -1,6 +1,5 @@
 import { createTRPCReact } from "@trpc/react-query";
 import { httpLink } from "@trpc/client";
-import superjson from "superjson";
 import type { AppRouter } from "C:/Users/user/PlanIT/PlanIT-backend/server/_core/appRouter";
  
 
@@ -11,7 +10,6 @@ export const trpc = createTRPCReact<AppRouter>();
 
 // @ts-ignore - tRPC type collision with any, but works at runtime
 export const trpcClient = trpc.createClient({
-  transformer: superjson,
   links: [
     httpLink({
       // Use VITE_API_URL if provided (production), otherwise fall back to
