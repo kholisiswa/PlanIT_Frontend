@@ -257,7 +257,7 @@ export default function Tags() {
                     )}
 
                     {/* EDIT / DELETE BUTTONS */}
-                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity select-none">
+                    <div className="flex gap-2 select-none">
 
                       {editingId === tag.id ? (
                         <Button
