@@ -37,7 +37,8 @@ type Task = {
   priority: "low" | "medium" | "high";
   status: "pending" | "in-progress" | "completed";
   dueDate: string | null;
-  tags: string[];
+  tags: { name: string; color?: string | null }[];
+
 };
 
 // ---------------- STYLE MAP ----------------
@@ -92,7 +93,10 @@ export default function Dashboard() {
     priority: t.priority,
     status: t.status,
     dueDate: t.dueDate ?? null,
-    tags: (t.tags ?? []).map((tag: any) => tag.name),
+    tags: (t.tags ?? []).map((tag: any) => ({
+      name: tag.name,
+      color: tag.color,
+    })),
   }));
 
   // ---------------- LOCAL STATE ----------------
@@ -360,11 +364,18 @@ export default function Dashboard() {
                       <div className="flex items-center gap-2 mt-2 pointer-events-none select-none">
 
                         {task.tags.map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">
-                            {tag}
+                          <Badge
+                            key={tag.name}
+                            variant="secondary"
+                            className="text-xs"
+                            style={{
+                              backgroundColor: tag.color ?? "#3b82f6",
+                              color: "white",
+                            }}
+                          >
+                            {tag.name}
                           </Badge>
                         ))}
-
                         <span className="ml-auto text-xs text-muted-foreground">
                           Due:{" "}
                           {task.dueDate
