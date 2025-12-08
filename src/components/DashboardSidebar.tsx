@@ -79,7 +79,7 @@ export function DashboardSidebar({ isOpen = true, onClose }: DashboardSidebarPro
               <img
                 src={APP_LOGO}
                 alt={APP_TITLE}
-                className="w-16 h-16 rounded-lg object-cover pointer-events-none"
+                className="w-8 h-8 rounded-lg object-cover pointer-events-none"
               />
               <span className="font-semibold text-foreground hidden sm:inline">
                 {APP_TITLE}
