@@ -172,18 +172,18 @@ export default function Tags() {
             )}
 
             <div className="space-y-2">
-              {filtered.map((tag) => (
+              {filtered.map((tag: TagType) => (
                 <div
                   key={tag.id}
                   className="
-                    flex items-center justify-between p-4 rounded-lg 
-                    hover:bg-accent/50 transition-colors group
+                    flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3
+                    p-4 rounded-lg hover:bg-accent/50 transition-colors group
                     cursor-pointer select-none
                   "
                   onClick={() => handleOpenTag(tag.id)}
                 >
                   {/* LEFT */}
-                  <div className="flex items-center gap-4 flex-1">
+                  <div className="flex items-center gap-4 flex-1 w-full">
 
                     {/* BADGE */}
                     <Badge
@@ -229,7 +229,7 @@ export default function Tags() {
 
                   {/* RIGHT */}
                   <div
-                    className="flex items-center gap-4"
+                    className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-end"
                     onClick={(e) => e.stopPropagation()}
                   >
 
@@ -241,7 +241,7 @@ export default function Tags() {
 
                     {/* COLORS WHEN EDITING */}
                     {editingId === tag.id && (
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 flex-wrap">
                         {COLOR_PRESETS.map((c) => (
                           <div
                             key={c}
