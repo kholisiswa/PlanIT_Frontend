@@ -109,7 +109,7 @@ export default function Register() {
             <img
             src="favicon.png"
             alt={APP_TITLE}
-            className="w-16 h-16 rounded-lg object-cover select-none"
+            className="w-8 h-8 rounded-lg object-cover select-none"
           />
             <span className="font-semibold text-foreground select-none cursor-default">
               {APP_TITLE}
@@ -135,7 +135,7 @@ export default function Register() {
               <img
             src="favicon.png"
             alt={APP_TITLE}
-            className="w-40 h-40 rounded-lg object-cover select-none"
+            className="w-20 h-20 rounded-lg object-cover select-none"
           />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-2">
