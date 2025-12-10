@@ -18,6 +18,17 @@ import { KanbanBoard } from "@/components/kanban/KanbanBoard";
 
 import type { TaskWithTags } from "@/types/task";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 export default function ProjectDetail() {
   const [match, params] = useRoute("/projects/:id");
   const navigate = useLocation()[1];
@@ -89,6 +100,28 @@ export default function ProjectDetail() {
   const [modalOpen, setModalOpen] = useState(false);
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskWithTags | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const handleDeleteProject = () => {
+    if (!project) {
+      return;
+    }
+
+    setDeleteLoading(true);
+    deleteProject.mutate(
+      { id: project.id },
+      {
+        onSuccess: () => {
+          setDeleteLoading(false);
+          setShowDeleteDialog(false);
+        },
+        onError: () => {
+          setDeleteLoading(false);
+        },
+      }
+    );
+  };
 
   if (isLoading) {
     return (
@@ -111,6 +144,15 @@ export default function ProjectDetail() {
     );
   }
 
+  const statusStyle =
+    {
+      active: "bg-[#DAFDE9] text-[#125C45]",
+      completed:
+        "bg-[#D2E2FF] text-[#1547E6] dark:bg-[#1547E6] dark:text-[#D2E2FF]",
+      archived:
+        "bg-[#E9E9F7] text-[#1F1F2A] dark:bg-[#1F1F2A] dark:text-[#E9E9F7]",
+    }[project.status] ?? "bg-gray-800 text-white";
+
   return (
     <DashboardLayoutCustom>
       <div className="space-y-6 select-none cursor-default">
@@ -122,19 +164,13 @@ export default function ProjectDetail() {
           </div>
 
           <div className="flex gap-2 select-none cursor-default">
-            {/* EDIT BUTTON */}
             <Button variant="outline" onClick={() => setModalOpen(true)}>
               <Edit2 className="w-4 h-4 mr-2 pointer-events-none" /> Edit
             </Button>
 
-            {/* DELETE BUTTON FIXED */}
             <Button
               className="bg-red-600 hover:bg-red-700 text-white"
-              onClick={() => {
-                if (confirm("Delete this project?")) {
-                  deleteProject.mutate({ id: project.id });
-                }
-              }}
+              onClick={() => setShowDeleteDialog(true)}
             >
               <Trash2 className="w-4 h-4 mr-2 pointer-events-none" /> Delete
             </Button>
@@ -154,20 +190,15 @@ export default function ProjectDetail() {
             {/* STATUS */}
             <div>
               <span className="text-muted-foreground text-sm">Status:</span>
-
               <span
-  className={[
-    "ml-2 px-2 py-1 rounded-md text-xs font-medium",
-    project.status === "active"
-      ? "bg-yellow-400 text-white"
-      : project.status === "completed"
-      ? "bg-green-400 text-white"
-      : "bg-gray-800 text-white",
-  ].join(" ")}
->
-  {project.status}
-</span>
-
+                className={[
+                  "ml-2 px-2 py-1 rounded-md text-xs font-medium",
+                  statusStyle,
+                ].join(" ")}
+              >
+                {project.status.charAt(0).toUpperCase() +
+                  project.status.slice(1)}
+              </span>
             </div>
 
             {/* PROGRESS */}
@@ -197,25 +228,10 @@ export default function ProjectDetail() {
             </div>
 
             {/* BOXES */}
-            <div className="grid grid-cols-3 gap-3 pt-2">
-              <div className="p-3 rounded-lg bg-accent/50 flex flex-col items-start">
-                <p className="text-xs text-muted-foreground">Members</p>
-                <p className="font-semibold">{project.ownerName ?? ""}</p>
-              </div>
-
+            <div className="grid grid-cols-1 gap-3 pt-2">
               <div className="p-3 rounded-lg bg-accent/50 flex flex-col items-start">
                 <p className="text-xs text-muted-foreground">Tasks</p>
                 <p className="font-semibold">{tasks.length}</p>
-              </div>
-
-              <div className="p-3 rounded-lg bg-accent/50 flex flex-col items-start">
-                <p className="text-xs text-muted-foreground">Created</p>
-                <p className="font-semibold text-xs">
-                  {new Date(project.createdAt).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </p>
               </div>
             </div>
           </CardContent>
@@ -318,6 +334,49 @@ export default function ProjectDetail() {
           }}
         />
       )}
+      <AlertDialog
+        open={showDeleteDialog}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            setShowDeleteDialog(false);
+          }
+        }}
+      >
+        <AlertDialogContent className="w-full max-w-md rounded-[24px] border border-[#dfe5eb] bg-white px-8 py-10 text-center shadow-[0_20px_74px_rgba(15,23,42,0.27)]">
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-red-600">
+            <span className="text-4xl font-semibold leading-none text-white">
+              !
+            </span>
+          </div>
+
+          <AlertDialogHeader className="space-y-1">
+            <AlertDialogTitle className="text-2xl font-semibold text-slate-900">
+              Delete
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-sm text-slate-500">
+              Are you sure you want to delete this project?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter className="mt-8 flex flex-col gap-3">
+            <AlertDialogCancel
+              type="button"
+              className="h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50"
+            >
+              Cancel
+            </AlertDialogCancel>
+
+            <AlertDialogAction
+              type="button"
+              onClick={handleDeleteProject}
+              disabled={deleteLoading}
+              className="h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70"
+            >
+              {deleteLoading ? "Delete..." : "Yes, Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </DashboardLayoutCustom>
   );
 }
