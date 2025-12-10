@@ -135,7 +135,7 @@ export default function Register() {
               <img
                 src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
                 alt={APP_TITLE}
-                className="w-16 h-16 rounded-full shadow-lg object-cover"
+                className="w-8 h-8 rounded-full shadow-lg object-cover"
               />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-2">
