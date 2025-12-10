@@ -97,7 +97,7 @@ export default function Login() {
           <div className="text-center mb-8 select-none cursor-default">
             <div className="flex justify-center mb-4">
               <img
-                src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
+                src="favicon.png"
                 alt={APP_TITLE}
                 className="w-8 h-8 rounded-full shadow-lg object-cover select-none"
               />
