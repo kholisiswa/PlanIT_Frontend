@@ -56,6 +56,7 @@ export default function Login() {
   const utils = trpc.useUtils();
   const [, navigate] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -81,10 +82,16 @@ export default function Login() {
   });
 
   const handleLogin = async () => {
+    setFormError(null);
     setIsSubmitting(true);
     try {
       await loginMutation.mutateAsync({ email, password });
-    } catch (error) {}
+    } catch (error: any) {
+      const msg = error?.message || "Login gagal. Periksa email/password.";
+      setFormError(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -128,6 +135,11 @@ export default function Login() {
               <CardDescription className="select-none cursor-default">
                 Masuk ke akun Anda untuk melanjutkan
               </CardDescription>
+              {formError && (
+                <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                  {formError}
+                </div>
+              )}
             </CardHeader>
 
             <CardContent className="space-y-6">
@@ -236,7 +248,7 @@ export default function Login() {
               <Button
                 variant="outline"
                 onClick={() => {
-                  window.location.href = getLoginUrl();
+                  window.location.href = getLoginUrl("signIn", email);
                 }}
                 disabled={loading || isSubmitting}
                 className="w-full h-10 gap-2 cursor-pointer select-none"
