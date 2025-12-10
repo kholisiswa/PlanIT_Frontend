@@ -14,8 +14,7 @@ import Tags from "./pages/Tags";
 import Settings from "./pages/Settings";
 import ProjectDetail from "./pages/projects/ProjectDetail";
 import TagTasksPage from "./pages/tags/TagTasksPage";
-
-
+import CustomerServiceForm from "@/pages/CustServices";  // <-- Path harus benar
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -32,6 +31,10 @@ function Router() {
       <Route path={"/tags/:id"} component={TagTasksPage} />
       <Route path={"/settings"} component={Settings} />
       <Route path={"/404"} component={NotFound} />
+
+      {/* Ganti dari /customer-service menjadi /help */}
+      <Route path={"/help"} component={CustomerServiceForm} />
+
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
