@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
-import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Link } from "wouter";
@@ -15,6 +15,8 @@ import { Link } from "wouter";
 // NAVBAR COMPONENT
 // =======================
 function Navbar() {
+  const [, navigate] = useLocation();
+
   return (
     <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 select-none cursor-default">
       <div className="container h-16 flex items-center justify-between">
@@ -28,8 +30,17 @@ function Navbar() {
             {APP_TITLE}
           </span>
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <ToggleTheme />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/login")}
+            className="cursor-pointer select-none rounded-b-md border border-border/70 text-primary hover:bg-primary/10 bg-transparent px-4 h-10 flex items-center gap-2 shadow-none"
+          >
+            <User className="w-4 h-4" />
+            <span className="font-semibold">Log in</span>
+          </Button>
         </div>
       </div>
     </nav>
@@ -230,8 +241,11 @@ export default function Login() {
                 disabled={loading || isSubmitting}
                 className="w-full h-10 gap-2 cursor-pointer select-none"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12s5.374 12 12 12 12-5.373 12-12-5.374-12-12-12zm6.21 18.046c-3.52 1.15-7.412 1.15-10.932 0-1.02-.334-1.678-1.32-1.678-2.42v-1.5c0-.552.448-1 1-1h15c.552 0 1 .448 1 1v1.5c0 1.1-.658 2.086-1.678 2.42zM12 12c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" fill="#4285F4" />
+                <svg className="w-5 h-5" viewBox="0 0 533.5 544.3" role="img" aria-hidden="true">
+                  <path fill="#4285F4" d="M533.5 278.4c0-18.3-1.5-36-4.4-53.1H272v100.6h147c-6.3 34-25.2 62.8-53.7 82.1v68.1h86.7c50.7-46.7 80.5-115.5 80.5-197.7Z" />
+                  <path fill="#34A853" d="M272 544.3c72.9 0 134.1-24.1 178.8-65.8l-86.7-68.1c-24.1 16.2-55 25.6-92.1 25.6-70.8 0-130.8-47.7-152.3-111.5H29v69.8C73.6 486.1 167.5 544.3 272 544.3Z" />
+                  <path fill="#FBBC04" d="M119.7 324.5c-11.3-34-11.3-70.7 0-104.7V150H29c-37.9 74.7-37.9 164.9 0 239.6l90.7-65.1Z" />
+                  <path fill="#EA4335" d="M272 106.8c39.6-.6 77.6 13.8 106.8 40.5l79.7-79.7C404.4 24 342.8-.9 272 0 167.5 0 73.6 58.2 29 150l90.7 69.8C141.2 154.5 201.2 106.8 272 106.8Z" />
                 </svg>
                 Sign in with Google
               </Button>
