@@ -11,6 +11,8 @@ export const getLoginUrl = (
   name?: string
 ) => {
   const isDevAuth = import.meta.env.VITE_DEV_AUTH === "true";
+  const backendOrigin =
+    import.meta.env.VITE_API_BASE_URL || window.location.origin;
 
   if (isDevAuth) {
     const redirectAfterLogin = `${window.location.origin}/dashboard`;
@@ -21,9 +23,9 @@ export const getLoginUrl = (
     return devUrl.toString();
   }
 
-  // Default: use backend Google OAuth starter route
-  const url = new URL("/api/auth/google", window.location.origin);
-  url.searchParams.set("redirectUri", `${window.location.origin}/dashboard`);
+  const url = new URL("/api/auth/google", backendOrigin);
+  const redirectTarget = `${window.location.origin}/dashboard`;
+  url.searchParams.set("redirectUri", redirectTarget);
   if (email) url.searchParams.set("emailHint", email);
   if (name) url.searchParams.set("nameHint", name);
   return url.toString();
