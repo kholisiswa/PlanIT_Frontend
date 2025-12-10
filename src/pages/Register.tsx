@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ToggleTheme } from "@/components/ToggleTheme";
-import { APP_TITLE } from "@/const";
+import { APP_TITLE, getLoginUrl } from "@/const";
 import { Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
@@ -27,6 +27,7 @@ export default function Register() {
   });
 
   const [passwordStrength, setPasswordStrength] = useState(0);
+  const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated && !authLoading) navigate("/dashboard");
@@ -50,18 +51,20 @@ export default function Register() {
   const loginMutation = trpc.auth.login.useMutation();
 
   const handleRegister = async () => {
+    setFormError(null);
+
     if (!formData.name || !formData.email || !formData.password) {
-      alert("Semua field wajib diisi!");
+      setFormError("Semua field wajib diisi!");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Password dan konfirmasi password tidak cocok!");
+      setFormError("Password dan konfirmasi password tidak cocok!");
       return;
     }
 
     if (formData.password.length < 6) {
-      alert("Password minimal 6 karakter");
+      setFormError("Password minimal 6 karakter");
       return;
     }
 
@@ -81,7 +84,7 @@ export default function Register() {
 
       navigate("/dashboard");
     } catch (error: any) {
-      alert(error.message || "Registrasi gagal. Coba lagi.");
+      setFormError(error?.message || "Registrasi gagal. Coba lagi.");
       setIsSubmitting(false);
     }
   };
@@ -162,6 +165,11 @@ export default function Register() {
                 Bergabunglah dengan kami dan mulai mengelola tugas Anda secara
                 efisien
               </CardDescription>
+              {formError && (
+                <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                  {formError}
+                </div>
+              )}
             </CardHeader>
 
             <CardContent className="space-y-6">
@@ -319,6 +327,9 @@ export default function Register() {
               <Button
                 variant="outline"
                 disabled={isLoading}
+                onClick={() => {
+                  window.location.href = getLoginUrl("signUp", formData.email, formData.name);
+                }}
                 className="w-full h-10 gap-2 cursor-pointer"
               >
                 <svg className="w-5 h-5" viewBox="0 0 533.5 544.3" role="img" aria-hidden="true">
