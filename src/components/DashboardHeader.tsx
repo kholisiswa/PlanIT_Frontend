@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { APP_TITLE } from "@/const";
-import { Menu, LogOut, User } from "lucide-react";
+import { Menu, LogOut, User, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 
@@ -70,7 +70,8 @@ export function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="relative h-9 w-9 rounded-full cursor-pointer"
+                className="relative h-9 rounded-full px-2 cursor-pointer flex items-center gap-3"
+                aria-label="User menu"
               >
                 <div
                   className="
@@ -83,6 +84,12 @@ export function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
                 >
                   {user?.name?.charAt(0).toUpperCase() || "U"}
                 </div>
+
+                <span className="hidden sm:inline text-sm font-medium select-none">
+                  {user?.name || "User"}
+                </span>
+
+                <ChevronDown className="w-4 h-4 text-muted-foreground pointer-events-none" />
               </Button>
             </DropdownMenuTrigger>
 
