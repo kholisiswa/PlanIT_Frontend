@@ -116,8 +116,17 @@ export default function Register() {
             </span>
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ToggleTheme />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/login")}
+              className="cursor-pointer select-none rounded-b-md border border-border/70 text-primary hover:bg-primary/10 bg-transparent px-4 h-10 flex items-center gap-2 shadow-none"
+            >
+              <User className="w-4 h-4" />
+              <span className="font-semibold">Log in</span>
+            </Button>
           </div>
         </div>
       </nav>
@@ -312,8 +321,11 @@ export default function Register() {
                 disabled={isLoading}
                 className="w-full h-10 gap-2 cursor-pointer"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M21.35 11.1h-9.17v2.96h5.27c-.23 1.27-.92 2.35-1.96 3.08v2.57h3.17c1.86-1.71 2.93-4.23 2.93-7.2 0-.62-.06-1.22-.17-1.81z" />
+                <svg className="w-5 h-5" viewBox="0 0 533.5 544.3" role="img" aria-hidden="true">
+                  <path fill="#4285F4" d="M533.5 278.4c0-18.3-1.5-36-4.4-53.1H272v100.6h147c-6.3 34-25.2 62.8-53.7 82.1v68.1h86.7c50.7-46.7 80.5-115.5 80.5-197.7Z" />
+                  <path fill="#34A853" d="M272 544.3c72.9 0 134.1-24.1 178.8-65.8l-86.7-68.1c-24.1 16.2-55 25.6-92.1 25.6-70.8 0-130.8-47.7-152.3-111.5H29v69.8C73.6 486.1 167.5 544.3 272 544.3Z" />
+                  <path fill="#FBBC04" d="M119.7 324.5c-11.3-34-11.3-70.7 0-104.7V150H29c-37.9 74.7-37.9 164.9 0 239.6l90.7-65.1Z" />
+                  <path fill="#EA4335" d="M272 106.8c39.6-.6 77.6 13.8 106.8 40.5l79.7-79.7C404.4 24 342.8-.9 272 0 167.5 0 73.6 58.2 29 150l90.7 69.8C141.2 154.5 201.2 106.8 272 106.8Z" />
                 </svg>
                 Sign up with Google
               </Button>
