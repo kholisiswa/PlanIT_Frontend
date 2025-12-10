@@ -20,7 +20,7 @@ function Navbar() {
       <div className="container h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 cursor-pointer">
           <img
-            src="favicon.png"
+            src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
             alt={APP_TITLE}
             className="w-8 h-8 rounded-lg object-cover select-none"
           />
@@ -97,9 +97,9 @@ export default function Login() {
           <div className="text-center mb-8 select-none cursor-default">
             <div className="flex justify-center mb-4">
               <img
-                src="favicon.png"
+                src="https://cdn-icons-png.freepik.com/512/8019/8019118.png"
                 alt={APP_TITLE}
-                className="w-20 h-20 rounded-full shadow-lg object-cover select-none"
+                className="w-16 h-16 rounded-full shadow-lg object-cover select-none"
               />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -110,7 +110,7 @@ export default function Login() {
 
           {/* Login Card */}
           <Card className="border-border/50 shadow-xl backdrop-blur-sm bg-card/95">
-            <CardHeader className="space-y-1 pb-6">
+            <CardHeader className="gap-1">
               <CardTitle className="text-2xl select-none cursor-default">
                 Selamat Datang Kembali
               </CardTitle>
