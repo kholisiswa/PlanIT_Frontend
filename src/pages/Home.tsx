@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ToggleTheme } from "@/components/ToggleTheme";
 import { APP_LOGO, APP_TITLE } from "@/const";
-import { CheckCircle2, Zap, Shield, BarChart3, ArrowRight } from "lucide-react";
+import { CheckCircle2, Zap, Shield, BarChart3, User, ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { useEffect } from "react";
 
 export default function Home() {
   const { user, isAuthenticated, loading } = useAuth();
   const [, navigate] = useLocation();
+  const currentYear = new Date().getFullYear();
 
   // Redirect to dashboard if authenticated
   useEffect(() => {
@@ -56,9 +57,17 @@ export default function Home() {
             <span className="font-semibold text-foreground">{APP_TITLE}</span>
           </div>
 
-          {/* SIGN IN & GET STARTED REMOVED */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ToggleTheme />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/login")}
+              className="cursor-pointer select-none rounded-b-md border border-border/70 text-primary hover:bg-primary/10 bg-transparent px-4 h-10 flex items-center gap-2 shadow-none"
+            >
+              <User className="w-4 h-4" />
+              <span className="font-semibold">Log in</span>
+            </Button>
           </div>
         </div>
       </nav>
@@ -91,19 +100,9 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => navigate("/register")}
-                className="gap-2 group cursor-pointer select-none"
-              >
-                register
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => navigate("/login")}
                 className="cursor-pointer select-none"
               >
-                Login
+                Mulai Explore
               </Button>
             </div>
           </div>
@@ -162,16 +161,22 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => navigate("/register")}
-                className="gap-2 group cursor-pointer select-none"
+                className="cursor-pointer select-none gap-2 group"
               >
                 Create Your Account
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
 
             </div>
           </CardContent>
         </Card>
       </div>
+
+      <footer className="mt-16 bg-primary text-primary-foreground">
+        <div className="container py-4 text-center text-sm font-medium select-none cursor-default">
+          © {currentYear} PlanIT. All Rights Reserved
+        </div>
+      </footer>
 
     </div>
   );
