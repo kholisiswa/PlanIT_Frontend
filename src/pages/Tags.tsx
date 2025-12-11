@@ -412,32 +412,6 @@ export default function Tags() {
             </div>
           </CardContent>
         </Card>
-
-        <Card className="mt-6 border border-border bg-card/70">
-          <CardHeader>
-            <CardTitle>Color Reference</CardTitle>
-            <CardDescription>Available colors for new tags</CardDescription>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {COLOR_REFERENCE.map((ref) => (
-                <div
-                  key={ref.name}
-                  className="flex items-center justify-between gap-3 rounded-lg border border-border/60 bg-background/60 px-4 py-3 text-sm"
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="inline-flex h-8 w-8 rounded-lg border border-border"
-                      style={{ backgroundColor: ref.color }}
-                    />
-                    <span className="font-semibold text-foreground">{ref.name}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">{ref.color}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* ADD TAG DIALOG - PERBAIKAN DI HEADER & COLOR BUTTONS */}
