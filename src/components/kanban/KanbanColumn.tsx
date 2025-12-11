@@ -23,7 +23,7 @@ export interface KanbanColumnProps {
   onToggleCollapse?: (status: Status) => void;
 
   onOpenDetail?: (task: TaskWithTags) => void;
-  onDeleteTask?: (taskId: number) => void;
+  onDeleteTask?: (task: TaskWithTags) => void;
 }
 
 /* ======================================================
