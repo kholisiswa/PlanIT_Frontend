@@ -102,6 +102,8 @@ export default function ProjectDetail() {
   const [selectedTask, setSelectedTask] = useState<TaskWithTags | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<TaskWithTags | null>(null);
+  const [taskDeleteLoading, setTaskDeleteLoading] = useState(false);
 
   const handleDeleteProject = () => {
     if (!project) {
@@ -118,6 +120,26 @@ export default function ProjectDetail() {
         },
         onError: () => {
           setDeleteLoading(false);
+        },
+      }
+    );
+  };
+
+  const handleConfirmDeleteTask = () => {
+    if (!taskToDelete) {
+      return;
+    }
+
+    setTaskDeleteLoading(true);
+    deleteTask.mutate(
+      { id: taskToDelete.id },
+      {
+        onSuccess: () => {
+          setTaskDeleteLoading(false);
+          setTaskToDelete(null);
+        },
+        onError: () => {
+          setTaskDeleteLoading(false);
         },
       }
     );
@@ -251,7 +273,7 @@ export default function ProjectDetail() {
           projectId={projectId}
           tasks={tasks as TaskWithTags[]}
           onOpenDetail={(task) => setSelectedTask(task)}
-          onDeleteTask={(taskId) => deleteTask.mutate({ id: taskId })}
+          onDeleteTask={(task) => setTaskToDelete(task)}
         />
       </div>
 
@@ -335,6 +357,51 @@ export default function ProjectDetail() {
         />
       )}
       <AlertDialog
+        open={!!taskToDelete}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            setTaskToDelete(null);
+          }
+        }}
+      >
+        <AlertDialogContent className="w-full max-w-md rounded-[24px] border border-[#dfe5eb] bg-white px-8 py-10 text-center shadow-[0_20px_74px_rgba(15,23,42,0.27)]">
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-red-600">
+            <span className="text-4xl font-semibold leading-none text-white">
+              !
+            </span>
+          </div>
+
+          <AlertDialogHeader className="space-y-1 text-center">
+            <AlertDialogTitle className="text-2xl font-semibold text-slate-900 text-center">
+              Delete Task
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-sm text-slate-500 text-center">
+              {taskToDelete
+                ? `Are you sure you want to delete "${taskToDelete.title}"?`
+                : "Are you sure you want to delete this task?"}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter className="mt-8 flex w-full flex-row gap-4 justify-center">
+            <AlertDialogCancel
+              type="button"
+              className="h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50 w-full flex-1"
+            >
+              Cancel
+            </AlertDialogCancel>
+
+            <AlertDialogAction
+              type="button"
+              onClick={handleConfirmDeleteTask}
+              disabled={taskDeleteLoading}
+              className="h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70 w-full flex-1"
+            >
+              {taskDeleteLoading ? "Delete..." : "Yes, Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog
         open={showDeleteDialog}
         onOpenChange={(isOpen) => {
           if (!isOpen) {
@@ -349,19 +416,20 @@ export default function ProjectDetail() {
             </span>
           </div>
 
-          <AlertDialogHeader className="space-y-1">
-            <AlertDialogTitle className="text-2xl font-semibold text-slate-900">
+          <AlertDialogHeader className="space-y-1 text-center sm:text-center">
+            <AlertDialogTitle className="text-2xl font-semibold text-slate-900 text-center sm:text-center">
               Delete
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-sm text-slate-500">
+            <AlertDialogDescription className="text-sm text-slate-500 text-center sm:text-center">
               Are you sure you want to delete this project?
             </AlertDialogDescription>
           </AlertDialogHeader>
 
-          <AlertDialogFooter className="mt-8 flex flex-col gap-3">
+          {/* FOOTER (Tombol lebar, sejajar, dan terpusat) */}
+          <AlertDialogFooter className="mt-8 flex w-full flex-row gap-4 justify-center">
             <AlertDialogCancel
               type="button"
-              className="h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50"
+              className="h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50 w-full flex-1"
             >
               Cancel
             </AlertDialogCancel>
@@ -370,7 +438,7 @@ export default function ProjectDetail() {
               type="button"
               onClick={handleDeleteProject}
               disabled={deleteLoading}
-              className="h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70"
+              className="h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70 w-full flex-1"
             >
               {deleteLoading ? "Delete..." : "Yes, Delete"}
             </AlertDialogAction>
