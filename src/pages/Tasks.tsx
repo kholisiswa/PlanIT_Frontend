@@ -423,7 +423,7 @@ export default function Tasks() {
           <DialogHeader>
             <DialogTitle>Delete Task?</DialogTitle>
             <DialogDescription>
-              Tindakan ini tidak dapat dibatalkan.
+              This action will result in permanent deletion.
             </DialogDescription>
           </DialogHeader>
 
