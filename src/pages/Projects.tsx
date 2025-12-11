@@ -225,7 +225,7 @@ export default function Projects() {
                         <Edit2 className="w-4 h-4 mr-2" /> Edit
                       </DropdownMenuItem>
 
-                      {/* NEW DELETE ACTION */}
+                      {/* DELETE ACTION */}
                       <DropdownMenuItem
                         className="text-red-600"
                         onClick={(e) => {
@@ -383,7 +383,7 @@ export default function Projects() {
         }}
       />
 
-      {/* DELETE DIALOG */}
+      {/* DELETE DIALOG - MODIFIKASI HANYA PADA FOOTER */}
       <AlertDialog
         open={showDeleteDialog}
         onOpenChange={(isOpen) => {
@@ -399,19 +399,22 @@ export default function Projects() {
             </span>
           </div>
 
-          <AlertDialogHeader className="space-y-1">
-            <AlertDialogTitle className="text-2xl font-semibold text-slate-900">
+           <AlertDialogHeader className="space-y-1 text-center sm:text-center">
+            <AlertDialogTitle className="text-2xl font-semibold text-slate-900 text-center sm:text-center">
               Delete
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-sm text-slate-500">
+            <AlertDialogDescription className="text-sm text-slate-500 text-center sm:text-center">
               Are you sure you want to delete this project?
             </AlertDialogDescription>
           </AlertDialogHeader>
 
-          <AlertDialogFooter className="mt-8 flex flex-col gap-3">
+          {/* PERBAIKAN DI SINI: Membuat tombol sejajar horizontal, lebar penuh, dan di tengah */}
+          <AlertDialogFooter className="mt-8 flex w-full flex-row gap-4 justify-center">
             <AlertDialogCancel
               type="button"
-              className="h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50"
+              // Kelas lama: h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50
+              // Kelas baru ditambahkan: w-1/2 flex-1
+              className="h-12 rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:bg-slate-50 w-full flex-1"
             >
               Cancel
             </AlertDialogCancel>
@@ -420,7 +423,9 @@ export default function Projects() {
               type="button"
               onClick={handleDeleteProject}
               disabled={deleteLoading}
-              className="h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70"
+              // Kelas lama: h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70
+              // Kelas baru ditambahkan: w-1/2 flex-1
+              className="h-12 rounded-full bg-red-600 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(15,23,42,0.25)] transition hover:bg-red-700 disabled:opacity-70 w-full flex-1"
             >
               {deleteLoading ? "Delete..." : "Yes, Delete"}
             </AlertDialogAction>
