@@ -1,3 +1,5 @@
+// pages/project/ProjectDetail.tsx
+
 import { useRoute, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useState } from "react";
@@ -102,6 +104,15 @@ export default function ProjectDetail() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<TaskWithTags | null>(null);
   const [taskDeleteLoading, setTaskDeleteLoading] = useState(false);
+
+  const openTaskDeleteDialog = (taskOrId: TaskWithTags | number) => {
+    if (typeof taskOrId === "number") {
+      const foundTask = tasks.find((t) => t.id === taskOrId) ?? null;
+      setTaskToDelete(foundTask);
+      return;
+    }
+    setTaskToDelete(taskOrId);
+  };
 
   const handleDeleteProject = () => {
     if (!project) {
@@ -271,7 +282,7 @@ export default function ProjectDetail() {
           projectId={projectId}
           tasks={tasks as TaskWithTags[]}
           onOpenDetail={(task) => setSelectedTask(task)}
-          onDeleteTask={(task) => setTaskToDelete(task)}
+          onDeleteTask={openTaskDeleteDialog}
         />
       </div>
 
@@ -374,7 +385,7 @@ export default function ProjectDetail() {
               Delete Task
             </AlertDialogTitle>
             <AlertDialogDescription className="text-sm text-slate-500 text-center">
-              {taskToDelete
+              {taskToDelete?.title
                 ? `Are you sure you want to delete "${taskToDelete.title}"?`
                 : "Are you sure you want to delete this task?"}
             </AlertDialogDescription>
