@@ -1,5 +1,3 @@
-// pages/project/ProjectDetail.tsx
-
 import { useRoute, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useState } from "react";
