@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog";
 
 // ================================
-//   CUSTOM ICONS (dihilangkan untuk fokus pada layout)
+//   CUSTOM ICONS (dihilangkan untuk fokus pada layout)
 // ================================
 
 const UsageIcon = () => (
@@ -440,7 +440,7 @@ export default function Tags() {
         </Card>
       </div>
 
-      {/* ADD TAG DIALOG */}
+      {/* ADD TAG DIALOG - PERBAIKAN DI HEADER & COLOR BUTTONS */}
       <Dialog
         open={isAddDialogOpen}
         onOpenChange={(open) => {
@@ -450,7 +450,8 @@ export default function Tags() {
           }
         }}>
         <DialogContent className="max-w-md">
-          <DialogHeader>
+          {/* Tambahkan text-center untuk memusatkan teks di header */}
+          <DialogHeader className="text-center"> 
             <DialogTitle>Add New Tag</DialogTitle>
             <DialogDescription>Isi nama, deskripsi, dan warna tag baru Anda</DialogDescription>
           </DialogHeader>
@@ -483,10 +484,12 @@ export default function Tags() {
                   <button
                     type="button"
                     key={color}
-                  className="h-10 w-22 rounded-lg border-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    // PERBAIKAN: Menggunakan w-full agar tombol mengisi kolom grid sepenuhnya
+                    className="h-10 w-full rounded-lg border-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     style={{
                       backgroundColor: color,
-                      borderColor: newTagColor === color ? "#ffffff" : "transparent",
+                      // Warna border disesuaikan agar terlihat lebih jelas pada latar belakang gelap
+                      borderColor: newTagColor === color ? "white" : "transparent",
                     }}
                     aria-label={`Pilih warna ${color}`}
                     aria-pressed={newTagColor === color}
@@ -510,7 +513,7 @@ export default function Tags() {
         </DialogContent>
       </Dialog>
 
-      {/* DELETE DIALOG (Tidak diubah) */}
+      {/* DELETE DIALOG (Tidak diubah, hanya memastikan konsistensi) */}
       <Dialog open={showDeleteDialog} onOpenChange={handleDialogOpenChange}>
         <DialogContent className="select-none">
           <DialogHeader>
