@@ -28,14 +28,14 @@ interface KanbanBoardProps {
   projectId: number;
   tasks: TaskWithTags[];
   onOpenDetail: (task: TaskWithTags) => void;
-  onDeleteTask?: (taskId: number) => void;
+  onDeleteTask?: (task: TaskWithTags) => void;
 }
 
 export function KanbanBoard({
   projectId,
   tasks,
   onOpenDetail,
-  onDeleteTask, // ← DITAMBAHKAN
+  onDeleteTask,
 }: KanbanBoardProps) {
   /* ---------------------------------------------
         DnD SENSORS
@@ -113,7 +113,7 @@ export function KanbanBoard({
                   onResize={(s, delta) => resize(s, delta)}
                   onToggleCollapse={() => toggle(status)}
                   onOpenDetail={onOpenDetail}
-                  onDeleteTask={onDeleteTask} // ← DITAMBAHKAN
+                  onDeleteTask={onDeleteTask}
                 />
               </motion.div>
             ))}
