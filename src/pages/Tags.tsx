@@ -453,7 +453,7 @@ export default function Tags() {
           {/* Tambahkan text-center untuk memusatkan teks di header */}
           <DialogHeader className="text-center"> 
             <DialogTitle>Add New Tag</DialogTitle>
-            <DialogDescription>Isi nama, deskripsi, dan warna tag baru Anda</DialogDescription>
+            <DialogDescription>Fill in the name, description, and color of your new tag</DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
